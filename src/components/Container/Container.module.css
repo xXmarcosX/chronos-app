@@ -1,11 +1,12 @@
 .container {
     max-width: 98rem;
+    
     /*coloca no centro sempre que for maior que 980px*/
     margin: 0 auto; 
 }
 
-.container-fluid {
-}
+/* .container-fluid {
+} */
 
 .content {
     margin: 3.2rem;
