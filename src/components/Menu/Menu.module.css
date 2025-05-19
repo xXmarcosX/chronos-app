@@ -1,0 +1,6 @@
+.container {
+  padding-top: 1rem;
+  justify-content: center;
+  display: flex;
+  gap: 1.5rem;
+}
