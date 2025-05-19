@@ -1,0 +1,32 @@
+.btn {
+  margin-top: .4rem;
+  border: none;
+  width: 28rem;
+  height: 4rem;
+  padding: .4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: .8rem;
+  cursor: pointer;
+  transition: 200ms ease-in-out;
+  margin-top: 4rem;
+}
+
+.green {
+  background-color: var(--primary);
+  color: var(--text-over-primary);
+}
+
+.green:hover {
+  background-color: var(--primary-dark);
+}
+
+.red {
+  background-color: var(--error);
+  color: var(--text-over-error);
+}
+
+.red:hover {
+  background-color: #5c1111;
+}
