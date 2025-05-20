@@ -13,6 +13,7 @@ body {
     font-size: 1.6rem;
     background-color: var(--gray-900);
     color: var(--text-default);
+    transition: 150ms ease-in-out;
 }
 
 .form {
