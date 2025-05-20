@@ -7,7 +7,7 @@
 }
 
 .footer a {
-  color: var(--text-over-error);
+  color: var(--text-muted);
   text-decoration: none;
 }
 
