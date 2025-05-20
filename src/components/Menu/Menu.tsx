@@ -1,4 +1,4 @@
-import { History, Home, Settings, Sun } from 'lucide-react'
+import { History, Home, Settings, Sun, Moon } from 'lucide-react'
 import styles from './Menu.module.css'
 import MenuIcon from './MenuIcon/MenuIcon'
 import { useState, useEffect } from 'react'
@@ -6,32 +6,44 @@ import { useState, useEffect } from 'react'
 type AvailableThemes = 'light' | 'dark'
 
 export default function Menu() {
-  const [theme, setTheme] = useState<AvailableThemes>('dark')
+  const [theme, setTheme] = useState<AvailableThemes>(() => {
 
-  const handleThemeChange = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>): void => {
+    // força o valor do storage a ser sempre light ou dark e por padrão retorna dark
+    const storageTheme = localStorage.getItem('theme') as AvailableThemes || 'dark'
+
+    return storageTheme
+  })
+
+  const handleThemeChange = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     e.preventDefault()
-    
-    theme === 'dark' ? setTheme('light') : setTheme('dark')
 
-    document.documentElement.setAttribute('data-theme', theme)
+    setTheme(prevTheme => {
+      const nextTheme = prevTheme === 'dark' ? 'light' : 'dark'
+      return nextTheme
+    })
   }
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme)
+    localStorage.setItem('theme', theme)
+  }, [theme])
 
   const btns = [
     {
       icon: <Home />,
-      label: 'Ir para home',
+      title: 'Ir para home'
     },
     {
       icon: <History />,
-      label: 'Ir para histórico'
+      title: 'Ir para o histórico'
     },
     {
       icon: <Settings />,
-      label: 'Ir para configurações'
+      title: 'Ir para as configurações'
     },
     {
-      icon: <Sun />,
-      label: 'Alterar tema',
+      icon: theme == 'dark' ? <Sun /> : <Moon />,
+      title: 'Alterar tema',
       funcao: handleThemeChange
     }
   ]
@@ -41,9 +53,8 @@ export default function Menu() {
       <nav className={styles.container}>
         {btns.map(bt =>
           <MenuIcon
-            key={bt.label}
-            label={bt.label}
-            func={bt.funcao && bt.funcao}>
+            func={bt.funcao && bt.funcao}
+            title={bt.title}>
             {bt.icon}
           </MenuIcon>)}
       </nav>
