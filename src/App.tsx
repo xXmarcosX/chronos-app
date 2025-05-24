@@ -1,41 +1,31 @@
 import './styles/theme.css'
 import './styles/global.css'
 
-import Container from './components/Container/Container'
-import Logo from './components/Logo/Logo'
-import Menu from './components/Menu/Menu'
-import Counter from './components/Counter/Counter'
-import Footer from './components/Footer/Footer'
-import MainForm from './components/MainForm/MainForm'
+import { Home } from './Pages/Home/Home'
+import { useState } from 'react'
+
+import type { TaskStateModel } from './models/TaskStateModel'
+import { TaskContext } from './contexts/TaskContext'
+
+const initialState: TaskStateModel = {
+  tasks: [],
+  secondsRemaining: 0,
+  formattedSecondsRemaining: '00:00',
+  activeTask: null,
+  currentCycle: 0,
+  config: {
+    worktime: 25,
+    shortBreakTime: 5,
+    longBreakTime: 15
+  }
+}
 
 export function App() {
+  const [state, setState] = useState<TaskStateModel>(initialState)
 
   return (
-    <>
-      {/* Logo */}
-      <Container>
-        <Logo />
-      </Container>
-
-      {/* Menu */}
-      <Container>
-        <Menu />
-      </Container>
-
-      {/* Contador */}
-      <Container>
-        <Counter />
-      </Container>
-
-      {/* Form */}
-      <Container>
-        <MainForm/>
-      </Container>
-
-      {/* Footer */}
-      <Container>
-        <Footer/>
-      </Container>
-    </>
+    <TaskContext.Provider value={{chave: 'aatrox'}}>
+       <Home/>
+    </TaskContext.Provider>
   )
 }
