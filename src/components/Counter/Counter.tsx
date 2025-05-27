@@ -1,15 +1,14 @@
-import { useContext } from 'react'
-import { TaskContext } from '../../contexts/TaskContext'
 import styles from './Counter.module.css'
+import { useTaskContext } from '../../contexts/TaskContext/useTaskContext'
 
 export default function Counter() {
 
-  const taskContext = useContext(TaskContext)
+  const {state} = useTaskContext()
 
   return (
     <>
       <div className={styles.counterContainer}>
-        <p>00:00</p>
+        <p>{state.formattedSecondsRemaining}</p>
       </div>
     </>
   )
