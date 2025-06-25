@@ -53,6 +53,7 @@ export default function Menu() {
       <nav className={styles.container}>
         {btns.map(bt =>
           <MenuIcon
+          key={bt.title}
             func={bt.funcao && bt.funcao}
             title={bt.title}>
             {bt.icon}

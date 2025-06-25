@@ -9,9 +9,11 @@ import { useTaskContext } from "../../contexts/TaskContext/useTaskContext"
 import { getNextCycle } from "../../utils/getNextCycle"
 import { getNextCycleType } from "../../utils/getNextCycleType"
 import { formatSecondsToMinutes } from "../../utils/formatSecondToMinutes"
+import { TaskActionsTypes } from "../../contexts/TaskContext/taskActions"
+import Tips from "../Tips/Tips"
 
 export default function MainForm() {
-  const { state, setState } = useTaskContext()
+  const { state, dispatch } = useTaskContext()
 
   const [taskName, setTaskName] = useState('')
 
@@ -39,16 +41,9 @@ export default function MainForm() {
 
     const secondsRemaining = newTask.duration * 60
 
-    setState(prevState => {
-      return {
-        ...prevState,
-        config: { ...prevState.config },
-        activeTask: newTask,
-        currentCycle: nextCycle,
-        secondsRemaining: secondsRemaining,
-        formattedSecondsRemaining: formatSecondsToMinutes(secondsRemaining),
-        tasks: [...prevState.tasks, newTask]
-      }
+    dispatch({
+      type: TaskActionsTypes.START_TASK,
+      payload: newTask
     })
   }
 
@@ -59,13 +54,8 @@ export default function MainForm() {
   const handleInterruptTask = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault()
 
-    setState(prevState => {
-      return {
-        ...prevState,
-        activeTask: null,
-        secondsRemaining: 0,
-        formattedSecondsRemaining: '00:00',
-      }
+    dispatch({
+      type: TaskActionsTypes.INTERRUPT_TASK
     })
   }
 
@@ -86,7 +76,7 @@ export default function MainForm() {
         </div>
 
         <div className="formRow">
-          <p>O próximo intervalo é de 25 minutos</p>
+          <Tips />
         </div>
 
         {!state.activeTask ? 'Você ainda não iniciou uma tarefa' : (
