@@ -8,7 +8,6 @@ import type { TaskModel } from "../../models/TaskModel"
 import { useTaskContext } from "../../contexts/TaskContext/useTaskContext"
 import { getNextCycle } from "../../utils/getNextCycle"
 import { getNextCycleType } from "../../utils/getNextCycleType"
-import { formatSecondsToMinutes } from "../../utils/formatSecondToMinutes"
 import { TaskActionsTypes } from "../../contexts/TaskContext/taskActions"
 import Tips from "../Tips/Tips"
 
@@ -38,8 +37,6 @@ export default function MainForm() {
       duration: state.config[nextCycleType],
       type: nextCycleType
     }
-
-    const secondsRemaining = newTask.duration * 60
 
     dispatch({
       type: TaskActionsTypes.START_TASK,
