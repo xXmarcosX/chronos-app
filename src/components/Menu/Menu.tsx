@@ -31,20 +31,23 @@ export default function Menu() {
   const btns = [
     {
       icon: <Home />,
-      title: 'Ir para home'
+      title: 'Ir para home',
+      link: '/'
     },
     {
       icon: <History />,
-      title: 'Ir para o histórico'
+      title: 'Ir para o histórico',
+      link: '/history'
     },
     {
       icon: <Settings />,
-      title: 'Ir para as configurações'
+      title: 'Ir para as configurações',
+      link: '/config'
     },
     {
       icon: theme == 'dark' ? <Sun /> : <Moon />,
       title: 'Alterar tema',
-      funcao: handleThemeChange
+      funcao: handleThemeChange,
     }
   ]
 
@@ -53,9 +56,11 @@ export default function Menu() {
       <nav className={styles.container}>
         {btns.map(bt =>
           <MenuIcon
-          key={bt.title}
+            key={bt.title}
             func={bt.funcao && bt.funcao}
-            title={bt.title}>
+            title={bt.title}
+            link={bt.link && bt.link}
+          >
             {bt.icon}
           </MenuIcon>)}
       </nav>

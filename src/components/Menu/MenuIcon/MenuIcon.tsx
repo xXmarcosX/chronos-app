@@ -1,17 +1,19 @@
 import styles from './MenuIcon.module.css'
+import RouterLink from '../../RouterLink/RouterLink'
 
 type MenuIconProps = {
   children: React.ReactNode,
   title: string,
-  func?: (e: any) =>  void
+  func?: (e: any) =>  void,
+  link?: string
 }
 
-export default function MenuIcon({children, func, title}: MenuIconProps) {
+export default function MenuIcon({children, func, title, link}: MenuIconProps) {
   return (
     <>
-      <a href='' className={styles.link}>
+      <RouterLink href={link ? link : 'error'} className={styles.link}>
         <button className={styles.button} onClick={func} title={title}>{children}</button>
-      </a>
+      </RouterLink>
     </>
   )
 }

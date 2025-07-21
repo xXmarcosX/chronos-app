@@ -10,21 +10,25 @@ import { getNextCycle } from "../../utils/getNextCycle"
 import { getNextCycleType } from "../../utils/getNextCycleType"
 import { TaskActionsTypes } from "../../contexts/TaskContext/taskActions"
 import Tips from "../Tips/Tips"
+import { showMessage } from "../../adapters/showMessage"
 
 export default function MainForm() {
   const { state, dispatch } = useTaskContext()
 
   const [taskName, setTaskName] = useState('')
+  const lasTaskName = state.tasks[state.tasks.length - 1]?.name || ''
 
   // ciclos
   const nextCycle = getNextCycle(state.currentCycle)
   const nextCycleType = getNextCycleType(nextCycle)
 
   const handleStartNewTask = (e: React.FormEvent<HTMLFormElement>) => {
+    showMessage.dismiss()
+
     e.preventDefault()
 
     if (!taskName.trim()) {
-      alert('Digite o nome da tarefa')
+      showMessage.error('Digite o nome da tarefa')
       return
     }
 
@@ -42,6 +46,8 @@ export default function MainForm() {
       type: TaskActionsTypes.START_TASK,
       payload: newTask
     })
+
+    showMessage.success('Tarefa iniciada com sucesso')
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -66,9 +72,9 @@ export default function MainForm() {
             labelText='Task'
             title='Task'
             placeholder='Digite sua Task'
-            value={taskName}
             onChange={handleChange}
             disabled={state.activeTask ? true : false}
+            defaultValue={lasTaskName}
           />
         </div>
 
